@@ -1,5 +1,5 @@
 <template>
-  <button @click="onCLick()" :style="{ background: color }" class="btn">
+  <button @click="onClick()" :style="{ background: color }" class="btn">
     {{ text }}
   </button>
 </template>
@@ -12,8 +12,8 @@ export default {
     color: String,
   },
   methods: {
-    onCLick() {
-      console.log("click");
+    onClick() {
+      this.$emit("btn-click");
     },
   },
 };

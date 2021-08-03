@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
+    <Header
+      @toggle-add-task="toggleTask"
+      title="Task Tracker"
+      :showAddTask="showAddTask"
+    />
+    <div v-if="showAddTask">
+      <AddTask @add-task="addTask" />
+    </div>
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -12,18 +19,27 @@
 <script>
 import Header from "./components/Header.vue";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 export default {
   name: "App",
   components: {
     Header,
     Tasks,
+    AddTask,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    toggleTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       if (confirm("Are you sure?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
