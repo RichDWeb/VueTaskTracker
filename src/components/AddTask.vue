@@ -35,26 +35,22 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault();
-
-      if (!this.text || !this.day) {
-        alert("Cannot have empty values");
+      if (!this.text) {
+        alert("Please add a task");
         return;
       }
-
       const newTask = {
+        // id: Math.floor(Math.random() * 100000),
         text: this.text,
         day: this.day,
         reminder: this.reminder,
       };
-
+      this.$emit("add-task", newTask);
       this.text = "";
       this.day = "";
       this.reminder = false;
-
-      this.$emit("add-task", newTask);
     },
   },
-  emits: ["add-task"],
 };
 </script>
 
